@@ -5,4 +5,6 @@ module com.jdbcfx.javafxcomjdbc {
 
     opens com.jdbcfx.javafxcomjdbc to javafx.fxml;
     exports com.jdbcfx.javafxcomjdbc;
+    exports com.jdbcfx.javafxcomjdbc.gui;
+    opens com.jdbcfx.javafxcomjdbc.gui to javafx.fxml;
 }
