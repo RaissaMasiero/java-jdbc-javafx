@@ -34,12 +34,12 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemDepartamentoAction(){
-        System.out.println("onMenuItemDepartamentoAction");
+        loadView("DepartmentList.fxml");
     }
 
     @FXML
     public void onMenuItemAboutAction(){
-        loadView("/resources/com/jdbcfx/javafxcomjdbc/About.fxml");
+        loadView("About.fxml");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MainViewController implements Initializable {
 
     private synchronized void loadView(String nomeCompleto){
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("About.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(nomeCompleto));
             VBox newVBox = loader.load();
 
             Scene scene = Main.getScene();
