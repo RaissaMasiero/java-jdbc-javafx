@@ -2,6 +2,7 @@ package com.jdbcfx.javafxcomjdbc.gui;
 
 import com.jdbcfx.javafxcomjdbc.Main;
 import com.jdbcfx.javafxcomjdbc.gui.util.Alerts;
+import com.jdbcfx.javafxcomjdbc.model.services.DepartmentService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,7 +35,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemDepartamentoAction(){
-        loadView("DepartmentList.fxml");
+        loadViewDep("DepartmentList.fxml");
     }
 
     @FXML
@@ -58,6 +59,28 @@ public class MainViewController implements Initializable {
             vBoxPrincipal.getChildren().clear();
             vBoxPrincipal.getChildren().add(menuPrincipal);
             vBoxPrincipal.getChildren().addAll(newVBox.getChildren());
+
+        } catch (IOException e) {
+            Alerts.showAlert("IOException", null, e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private synchronized void loadViewDep(String nomeCompleto){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(nomeCompleto));
+            VBox newVBox = loader.load();
+
+            Scene scene = Main.getScene();
+            VBox vBoxPrincipal = (VBox) ((ScrollPane)scene.getRoot()).getContent();
+
+            Node menuPrincipal = vBoxPrincipal.getChildren().get(0);
+            vBoxPrincipal.getChildren().clear();
+            vBoxPrincipal.getChildren().add(menuPrincipal);
+            vBoxPrincipal.getChildren().addAll(newVBox.getChildren());
+
+            DepartmentListController controller = loader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
 
         } catch (IOException e) {
             Alerts.showAlert("IOException", null, e.getMessage(), Alert.AlertType.ERROR);
