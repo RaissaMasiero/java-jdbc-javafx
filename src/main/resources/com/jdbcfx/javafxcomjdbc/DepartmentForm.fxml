@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="181.0" prefWidth="543.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<AnchorPane prefHeight="181.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdbcfx.javafxcomjdbc.gui.DepartmentFormController">
    <children>
       <GridPane layoutX="38.0" layoutY="43.0" prefHeight="107.0" prefWidth="455.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -26,13 +25,13 @@
          <children>
             <Label text="ID" />
             <Label text="Nome" GridPane.rowIndex="1" />
-            <TextField editable="false" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label textFill="#fc0000" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="txtId" editable="false" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelNomeErro" textFill="#fc0000" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" text="Salvar" />
-                  <Button mnemonicParsing="false" text="Cancelar" />
+                  <Button fx:id="buttonSalvar" mnemonicParsing="false" onAction="#onButtonSalvarAction" text="Salvar" />
+                  <Button fx:id="buttonCancelar" mnemonicParsing="false" onAction="#onButtonCancelarAction" text="Cancelar" />
                </children>
             </HBox>
          </children>
