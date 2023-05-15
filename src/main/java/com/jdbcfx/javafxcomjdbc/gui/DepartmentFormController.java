@@ -1,6 +1,7 @@
 package com.jdbcfx.javafxcomjdbc.gui;
 
 import com.jdbcfx.javafxcomjdbc.gui.util.Constraints;
+import com.jdbcfx.javafxcomjdbc.model.entities.Department;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,6 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
+
+    private Department entidade;
 
     @FXML
     private TextField txtId;
@@ -26,6 +29,10 @@ public class DepartmentFormController implements Initializable {
 
     @FXML
     private Button buttonCancelar;
+
+    public void setDepartamento(Department entidade) {
+        this.entidade = entidade;
+    }
 
     @FXML
     public void onButtonSalvarAction(){
@@ -45,5 +52,13 @@ public class DepartmentFormController implements Initializable {
     private void initializeNodes(){
         Constraints.setTextFieldInteger(txtId);
         Constraints.setTextFieldMaxLength(txtNome, 30);
+    }
+
+    public void updateFormData(){
+        if(entidade == null){
+            throw new IllegalStateException("Entidade está nula!");
+        }
+        txtId.setText(String.valueOf(entidade.getId()));
+        txtNome.setText(entidade.getName());
     }
 }
