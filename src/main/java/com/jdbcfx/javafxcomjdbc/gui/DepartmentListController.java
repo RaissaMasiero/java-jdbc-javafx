@@ -1,6 +1,7 @@
 package com.jdbcfx.javafxcomjdbc.gui;
 
 import com.jdbcfx.javafxcomjdbc.Main;
+import com.jdbcfx.javafxcomjdbc.gui.listeners.DataChangeListener;
 import com.jdbcfx.javafxcomjdbc.gui.util.Alerts;
 import com.jdbcfx.javafxcomjdbc.gui.util.Utils;
 import com.jdbcfx.javafxcomjdbc.model.entities.Department;
@@ -26,7 +27,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 
     private DepartmentService service;
 
@@ -85,6 +86,7 @@ public class DepartmentListController implements Initializable {
             DepartmentFormController controller = loader.getController();
             controller.setDepartamento(obj);
             controller.setDepartmentService(new DepartmentService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -98,5 +100,10 @@ public class DepartmentListController implements Initializable {
         }catch (IOException e) {
             Alerts.showAlert("IO Exception", null, e.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+    @Override
+    public void onDataChanged() {
+        updateTableView();
     }
 }
