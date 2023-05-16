@@ -56,8 +56,6 @@ public class SellerListController implements Initializable, DataChangeListener {
     @FXML
     private TableColumn<Seller, Seller> tableColumnREMOVE;
 
-
-
     @FXML
     private Button buttonNovo;
 
@@ -104,12 +102,12 @@ public class SellerListController implements Initializable, DataChangeListener {
     }
 
     private void createDialogForm(Seller obj, String nomeCompleto, Stage parentStage){
-        /*try{
+        try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(nomeCompleto));
             Pane pane = loader.load();
 
             SellerFormController controller = loader.getController();
-            controller.setDepartamento(obj);
+            controller.setVendedor(obj);
             controller.setSellerService(new SellerService());
             controller.subscribeDataChangeListener(this);
             controller.updateFormData();
@@ -124,7 +122,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 
         }catch (IOException e) {
             Alerts.showAlert("IO Exception", null, e.getMessage(), Alert.AlertType.ERROR);
-        } */
+        }
     }
 
     @Override
