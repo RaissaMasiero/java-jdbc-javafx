@@ -3,6 +3,7 @@ package com.jdbcfx.javafxcomjdbc.gui;
 import com.jdbcfx.javafxcomjdbc.Main;
 import com.jdbcfx.javafxcomjdbc.gui.util.Alerts;
 import com.jdbcfx.javafxcomjdbc.model.services.DepartmentService;
+import com.jdbcfx.javafxcomjdbc.model.services.SellerService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +32,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemVendedorAction(){
-        System.out.println("onMenuItemVendedorAction");
+        loadView("SellerList.fxml", (SellerListController controller) -> {
+            controller.setSellerService(new SellerService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
