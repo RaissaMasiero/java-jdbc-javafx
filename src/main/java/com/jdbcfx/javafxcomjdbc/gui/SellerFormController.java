@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -112,16 +113,32 @@ public class SellerFormController implements Initializable {
 
     private Seller getFormData() {
         Seller obj = new Seller();
-
         ValidationException exception = new ValidationException("Erro de validação!");
-
         obj.setId(Utils.tryParseToInt(txtId.getText()));
 
         if(txtNome.getText() == null || txtNome.getText().trim().equals("")){
-            exception.addError("name", "Campo não pode estar vazio!");
+            exception.addError("nome", "Campo não pode estar vazio!");
+        }
+        obj.setNome(txtNome.getText());
+
+        if(txtEmail.getText() == null || txtEmail.getText().trim().equals("")){
+            exception.addError("email", "Campo não pode estar vazio!");
+        }
+        obj.setEmail(txtEmail.getText());
+
+        if(dpDataNascimento.getValue() == null){
+            exception.addError("dataNascimento", "Campo não pode estar vazio!");
+        }else{
+            Instant instant = Instant.from(dpDataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()));
+            obj.setDataNascimento(Date.from(instant));
         }
 
-        obj.setNome(txtNome.getText());
+        if(txtSalarioBase.getText() == null || txtSalarioBase.getText().trim().equals("")){
+            exception.addError("salarioBase", "Campo não pode estar vazio!");
+        }
+        obj.setSalarioBase(Utils.tryParseToDouble(txtSalarioBase.getText()));
+
+        obj.setDepartment(comboBoxDepartment.getValue());
 
         if(exception.getErrors().size() > 0){
             throw exception;
@@ -185,9 +202,10 @@ public class SellerFormController implements Initializable {
     private void setErrorMessages(Map<String, String> errors){
         Set<String> fields = errors.keySet();
 
-        if(fields.contains("nome")){
-            labelNomeErro.setText(errors.get("nome"));
-        }
+        labelNomeErro.setText((fields.contains("nome") ? errors.get("nome") : ""));
+        labelEmailErro.setText((fields.contains("email") ? errors.get("email") : ""));
+        labelDataNascimentoErro.setText((fields.contains("dataNascimento") ? errors.get("dataNascimento") : ""));
+        labelSalarioBaseErro.setText((fields.contains("salarioBase") ? errors.get("salarioBase") : ""));
     }
 
     private void initializeComboBoxDepartment() {
