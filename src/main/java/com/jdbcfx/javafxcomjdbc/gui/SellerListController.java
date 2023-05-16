@@ -6,6 +6,7 @@ import com.jdbcfx.javafxcomjdbc.gui.listeners.DataChangeListener;
 import com.jdbcfx.javafxcomjdbc.gui.util.Alerts;
 import com.jdbcfx.javafxcomjdbc.gui.util.Utils;
 import com.jdbcfx.javafxcomjdbc.model.entities.Seller;
+import com.jdbcfx.javafxcomjdbc.model.services.DepartmentService;
 import com.jdbcfx.javafxcomjdbc.model.services.SellerService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -108,7 +109,8 @@ public class SellerListController implements Initializable, DataChangeListener {
 
             SellerFormController controller = loader.getController();
             controller.setVendedor(obj);
-            controller.setSellerService(new SellerService());
+            controller.setServices(new SellerService(), new DepartmentService());
+            controller.loadAssociatedObjects();
             controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
@@ -121,6 +123,7 @@ public class SellerListController implements Initializable, DataChangeListener {
             dialogStage.showAndWait();
 
         }catch (IOException e) {
+            e.printStackTrace();
             Alerts.showAlert("IO Exception", null, e.getMessage(), Alert.AlertType.ERROR);
         }
     }
